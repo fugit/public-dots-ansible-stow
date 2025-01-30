@@ -1,0 +1,14 @@
+---
+- name: Install pipx
+  ansible.builtin.pip:
+    name: pipx
+    state: present
+  tags:
+    - pipx
+
+- name: Install pipx packages
+  ansible.builtin.command:
+    cmd: "pipx install {{ item }}"
+  loop: "{{ packages.pipx }}"
+  tags:
+    - pipx

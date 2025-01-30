@@ -1,0 +1,237 @@
+---
+packages:
+  blackHole:
+    - sl
+    - fortune
+    - youtube-dl
+
+  core:
+    - acpi
+    - ansible-aur
+    - bat
+    - btop
+    - brightnessctl
+    - entr
+    - exa
+    - fd
+    - fwupd
+    - fzf
+    - git
+    - inetutils
+    - ncdu
+    - lazygit
+    - neovim
+    - net-tools # no longer provides hostname
+    - networkmanager
+    - npm
+    - pacman-contrib
+    - pass
+    # ntfy
+    - ripgrep
+    - rsync
+    - stow
+    - tmux
+    - tree
+    - zoxide
+    - zsh
+    # base
+    # base-devel
+    # linux
+    # linux-headers
+    # linux-firmware
+    # bluez
+    # bluez-utils
+    # ansible
+    # htop
+    # vifm
+
+  system:
+    # currently will start service. However keyd ended up needing its own...
+    - keyd
+    # e2fsprogs
+    # btrfs-progs
+    # ntfs-3g
+    # exfatprogs
+    # dosfstools
+    # udisks2
+    # gvfs-gphoto2
+    # gvfs-mtp
+    # mtpfs
+    # openssh
+    # wget
+    # zsync
+    # rclone
+    # keychain
+    # pass
+    # nftables
+    # iptables-nft
+    # gnu-netcat
+    # man
+    # mlocate
+    # bat
+    # tree
+    # bc
+    # entr
+    # fzf
+    # ripgrep
+    # jq
+    # zip
+    # unzip
+    # unrar
+    # atool
+    # nmap
+    # lsof
+
+  wayland:
+    - dunst
+    - pipewire
+    - pipewire-pulse
+    - slurp
+    - swappy
+    - swaybg
+    - swayidle
+    - swaylock
+    - tbsm
+    - waybar
+    - wayland
+    - wayland-protocols
+    - wayshot
+    - wireplumber
+    - wlopm
+    - wl-kbptr
+    - wlrctl
+    - xdg-desktop-portal
+    - xdg-desktop-portal-gtk
+    - xdg-desktop-portal-wlr
+    - xorg-xwayland
+
+  desktop:
+    # Apps ##
+    - easyeffects
+    - firefox-developer-edition
+    - keepassxc
+    - megasync
+    - safeeyes
+    - spotify
+    - spotify-tui
+    - tailscale
+    - vlc
+    - zen-browser-bin
+    # WM ##
+    - network-manager-applet
+    - river
+    - rofi-wayland
+    - wl-clipboard
+    # Terminal ##
+    - alacritty
+    - aws-cli-v2-bin
+    - azure-cli
+    - bash-completion
+    - bash-git-prompt
+    - bluez
+    - bluez-utils
+    - bluetuith
+    - calcurse
+    - foot
+    - ghostty
+    - gotop
+    - jq
+    - keychain
+    - fastfetch
+    - prettier
+    - socat
+    - starship
+    - surfraw
+    - unzip
+    - yt-dlp
+    # Images && Ranger ##
+    - feh
+    - ffmpegthumbnailer
+    - imagemagick
+    - highlight
+    - libcaca
+    - lynx
+    - mediainfo
+    - odt2txt
+    - perl-image-exiftool
+    - python-pillow
+    - ranger
+    - rxvt-unicode
+    - ueberzug
+    - w3m
+    - yazi
+    # sxiv
+    # Work Apps ##
+    - freerdp2
+    - krdc
+    - slack-desktop-wayland
+    - teams-for-linux
+    - zoom
+    # Files
+    - pcmanfm
+    - zathura
+    - zathura-pdf-mupdf
+    - zathura-djvu
+    # Code ##
+    - go
+    - nix
+    - pre-commit
+    - python
+    - python-pip
+    - python-pynvim
+    - ruby
+    - rubygems
+    # Unused ##
+    # aspell
+    # aspell-en
+    # gimp
+    # hugo
+    # newsboat
+    # river-tag-overly-git
+    # sdcv
+    # signal-desktop
+    # translate-shell
+    # wl-clipboard-x11
+
+  fonts:
+    - adobe-source-code-pro-fonts
+    - consolas-font
+    - gsfonts
+    - noto-fonts
+    - noto-fonts-extra
+    - noto-fonts-emoji
+    - otf-font-awesome
+    - powerline-fonts
+    - terminus-font
+    - ttf-hack
+    - ttf-hack-nerd
+    - ttf-font-awesome
+    - ttf-jetbrains-mono
+    - ttf-ms-fonts
+    - ttf-nerd-fonts-symbols
+    - ttf-unifont
+    - woff-fira-code
+
+  virtualization:
+    - distrobox
+    - podman
+    - podman-compose
+    - terraform
+    # crun
+    # aardvark-dns
+    # docker-ci
+    # netavark
+    # podman-docker
+    # buildah
+    # skopeo
+    # lxc
+    # lxd
+    # kubectl
+    # kubectx
+    # helm
+    # qemu
+    # libvirt
+    # virt-install
+    # cloud-image-utils
+    # edk2-ovmf
+    # dmidecode

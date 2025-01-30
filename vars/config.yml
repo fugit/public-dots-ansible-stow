@@ -1,0 +1,26 @@
+---
+folders:
+  config:
+    # used to not link at directory level
+    - calcurse
+    - git
+    - ranger
+    # river
+    - rofi
+    - nvim
+    - tmux
+    - tmux/conf/sessions
+  data:
+    # Used to setup data/bin dirs
+    - bin
+    - caches/z/
+    - share/nvim/site/autoload
+    - Pictures/wallpaper
+  home:
+    # used to not link at directory level
+    - .ssh
+    - .aws
+    - certs
+    - .gnupg
+    - gnupg
+    - Pictures/wayshot

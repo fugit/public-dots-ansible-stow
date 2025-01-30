@@ -1,0 +1,210 @@
+---
+- name: Remove black hole packages (Arch)
+  become: true
+  yay:
+    name: "{{ item }}"
+    state: absent
+    update_cache: false
+  loop: "{{ packages.blackHole }}"
+  when:
+    - ansible_os_family == 'Archlinux'
+  tags:
+    - packages
+    - yay
+
+- name: Remove black hole packages (Debian)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ packages.blackHole }}"
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+    - apt
+    - packages
+
+- name: Upgrade system packages (Arch)
+  become: false
+  yay:
+    update_cache: true
+    upgrade: true
+  when:
+    - ansible_os_family == 'Archlinux'
+  tags:
+    - upgrade
+
+- name: Upgrade system packages (Debian)
+  become: true
+  ansible.builtin.apt:
+    update_cache: false
+    upgrade: false
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+    - upgrade
+
+- name: Install core packages (Arch)
+  become: true
+  become_user: aur_builder
+  yay:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.core }}"
+  when:
+    - ansible_os_family == 'Archlinux'
+  tags:
+    - packages
+    - yay
+
+- name: Install core packages (Debian)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.core }}"
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+    - apt
+    - packages
+
+- name: Install system packages (Arch)
+  become: true
+  become_user: aur_builder
+  yay:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.system }}"
+  when:
+    - ansible_os_family == 'Archlinux'
+  tags:
+    - packages
+    - yay
+
+- name: Enable services for system packages
+  become: true
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    masked: false
+  loop: "{{ packages.system }}"
+  tags:
+    - packages
+
+- name: Install system packages (Debian)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.system }}"
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+    - apt
+    - packages
+
+- name: Install wayland packages (Arch)
+  become: true
+  become_user: aur_builder
+  yay:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.wayland }}"
+  when: ansible_os_family == 'Archlinux'
+  tags:
+    - aur
+    - packages
+    - yay
+
+- name: Install wayland packages (Debian)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.wayland }}"
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+    - apt
+    - packages
+
+- name: Install desktop packages (Arch)
+  become: true
+  become_user: aur_builder
+  yay:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.desktop }}"
+  when:
+    - ansible_facts['os_family'] == 'Archlinux'
+  tags:
+    - aur
+    - packages
+    - yay
+
+- name: Install desktop packages (Debian)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.desktop }}"
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+    - apt
+    - packages
+
+- name: Install fonts packages (Arch)
+  become: true
+  become_user: aur_builder
+  yay:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.fonts }}"
+  when:
+    - ansible_os_family == 'Archlinux'
+  tags:
+    - aur
+    - packages
+    - yay
+
+- name: Install fonts packages (Debian)
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.fonts }}"
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+    - apt
+    - packages
+
+- name: Install virtualization packages (Arch)
+  become: true
+  become_user: aur_builder
+  yay:
+    name: "{{ item }}"
+    state: present
+    update_cache: false
+  loop: "{{ packages.virtualization }}"
+  when:
+    - ansible_os_family == 'Archlinux'
+  tags:
+    - packages
+    - yay
+# DEBUG
+# - name: Print all available facts
+#  ansible.builtin.debug:
+#  var: ansible_facts

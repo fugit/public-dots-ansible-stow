@@ -1,0 +1,143 @@
+---
+- name: Create .config folder structure
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+  ansible.builtin.file:
+    path: "{{ user_home }}/.config/{{ item }}"
+    state: directory
+  loop: "{{ folders.config }}"
+  tags:
+    - config
+
+- name: Create data folder structure
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+  ansible.builtin.file:
+    path: "{{ user_home }}/.local/{{ item }}"
+    state: directory
+  loop: "{{ folders.data }}"
+  tags:
+    - config
+
+- name: Create home folder structure
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+  ansible.builtin.file:
+    path: "{{ user_home }}/{{ item }}"
+    state: directory
+  loop: "{{ folders.home }}"
+  tags:
+    - config
+
+- name: List Stow Directories
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+  find:
+    path: "{{ user_home }}/dotfiles/"
+    file_type: directory
+    hidden: false
+    recurse: false
+  register: home_directory_lists
+  tags:
+    - config
+- name: Stow dotfiles
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+  ansible.builtin.shell:
+    cmd: "stow -d {{ user_home }}/dotfiles -t ~/ {{ item.path | basename }}"
+  loop: "{{ home_directory_lists.files }}"
+- debug:
+    msg: "process {{ item.path | basename }}"
+  loop: "{{ home_directory_lists.files }}"
+  tags:
+    - config
+
+#- name: Get files
+#  find:
+#    paths: "{{ (directory_list.files | sort(attribute='mtime') | last).path }}"
+#    file_type: file
+#  register: process_files
+#- debug:
+#    msg: "process {{ item }}"
+#  loop: "{{ process_files.files }}"
+
+#- name: Download oh my zsh install script
+#  ansible.builtin.get_url:
+#    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+#    dest: /tmp/ohmyzsh.sh
+#    mode: 0700
+
+- name: Delete .ohmyzsh
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+  ansible.builtin.file:
+    path: "{{ user_home }}/.oh-my-zsh"
+    state: absent
+  tags:
+    - config
+#- name: Install oh my zsh
+#  ansible.builtin.script:
+#    cmd: /tmp/ohmyzsh.sh
+
+#- name: Install syntax highlighting plugin
+#  vars:
+#    user_home: "{{ lookup('env', 'HOME') }}"
+#  ansible.builtin.git:
+#    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+#    dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+
+#- name: Install lxd completion plugin
+#  vars:
+#    user_home: "{{ lookup('env', 'HOME') }}"
+#  ansible.builtin.git:
+#    repo: https://github.com/endaaman/lxd-completion-zsh.git
+#    dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/lxd-completion-zsh"
+#  tags:
+#    - config
+#- name: delete .zshrc
+#  vars:
+#    user_home: "{{ lookup('env', 'HOME') }}"
+#  ansible.builtin.file:
+#    path: "{{ user_home }}/.zshrc"
+#    state: absent
+
+#- name: Stow zsh
+#  ansible.builtin.shell:
+#    cmd: "stow -d $HOME/dotfiles -t ~/ zsh"
+
+#- name: Install nvim Plug
+#  vars:
+#    user_home: "{{ lookup('env', 'HOME') }}"
+#  ansible.builtin.get_url:
+#    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#    dest: "{{ user_home }}/.local/share/nvim/site/autoload/plug.vim"
+
+#- name: Stow nvim
+#  ansible.builtin.shell:
+#    cmd: "stow -d $HOME/dotfiles -t ~/ neovim"
+
+#- name: List .home files
+#  vars:
+#    user_home: "{{ lookup('env', 'HOME') }}"
+#  find:
+#    path: "{{ user_home }}/dotfiles/.home"
+#    file_type: file
+#    hidden: true
+#  register: home_file_lists
+#- name: Stow Home Files
+#  vars:
+#    user_home: "{{ lookup('env', 'HOME') }}"
+#  ansible.builtin.shell:
+#    cmd: "stow -d {{ user_home }}/dotfiles -t ~/ {{ item }}"
+#  loop: "{{ home_file_lists.files }}"
+#- name: List .home directories
+#  vars:
+#    user_home: "{{ lookup('env', 'HOME') }}"
+#  find:
+#    path: "{{ user_home }}/dotfiles/.home"
+#    file_type: directory
+#    hidden: true
+#  register: home_directory_lists
+#- debug:
+#    msg: "process {{ item.path }}"
+#  loop: "{{ home_directory_lists.files }}"

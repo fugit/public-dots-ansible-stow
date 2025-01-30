@@ -1,0 +1,73 @@
+---
+# This could be made to work with others...
+- name: Install keyd
+  become: true
+  become_user: aur_builder
+  aur:
+    use: yay
+    name: keyd
+    state: latest
+    update_cache: false
+  when:
+    - ansible_os_family == 'Archlinux'
+  tags:
+    - keyd
+
+- name: Enable Start keyd
+  become: true
+  become_user: aur_builder
+  ansible.builtin.service:
+    name: keyd
+    enabled: true
+    state: started
+  tags:
+    - keyd
+
+- name: Create Keyd default folders
+  become: true
+  # become_user: aur_builder
+  ansible.builtin.file:
+    path: /etc/keyd
+    state: directory
+    owner: root
+    group: wheel
+    mode: "0775"
+  tags:
+    - keyd
+
+- name: Create Keyd default file
+  become: true
+  # become_user: aur_builder
+  vars:
+    user_home: "{{ lookup('env', 'HOME') }}"
+  ansible.builtin.copy:
+    src: "{{ user_home }}/.config/keyd/default.conf"
+    dest: /etc/keyd/default.conf
+    owner: root
+    group: root
+    mode: "0644"
+  tags:
+    - keyd
+
+- name: Get user name
+  become: false
+  local_action: command whoami
+  # delegate_to: command whoami
+  register: username_on_host
+  tags:
+    - keyd
+
+- debug: var=username_on_host
+  tags:
+    - keyd
+    - debug
+
+- name: Update user with Keyd group
+  become: true
+  become_user: aur_builder
+  ansible.builtin.user:
+    name: "{{ username_on_host.stdout }}"
+    groups: keyd,wheel
+    append: true
+  tags:
+    - keyd

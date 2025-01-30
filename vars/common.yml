@@ -1,0 +1,9 @@
+---
+timezone: America/New_York
+
+locales:
+  - en_US.UTF-8
+
+hostname: fugitarch
+
+user: fugit

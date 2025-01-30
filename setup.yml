@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+
+  vars_files:
+    - vars/packages.yml
+    - vars/config.yml
+
+  tasks:
+    - import_tasks: tasks/auruser.yml
+    - import_tasks: tasks/config.yml
+    - import_tasks: tasks/packages.yml
+    - import_tasks: tasks/keyd.yml
